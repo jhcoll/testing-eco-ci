@@ -4,7 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  check_date:
+    runs-on: ubuntu-latest
+    name: Check latest commit
+    outputs:
+      should_run: ${{ steps.check_branch_commits.outputs.should_run }}
+    steps:
+      - id: check_branch_commits
+        uses: green-coding-berlin/eco-ci-activity-checker@v1
+        with:
+          branch: 'activity-checker'
+
   test_activity_checker:
+    needs: check_date
+    if: needs.check_date.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
