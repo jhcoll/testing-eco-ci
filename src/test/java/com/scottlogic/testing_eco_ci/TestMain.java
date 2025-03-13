@@ -14,5 +14,6 @@ public class TestMain {
     public void testMain(StdOut out) {
         Main.main(new String[0]);
         assertEquals("Hello World!", out.capturedLines()[0]);
+        
     }
 }
